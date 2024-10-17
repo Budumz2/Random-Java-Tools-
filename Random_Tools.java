@@ -1,6 +1,6 @@
 /*      Made by Paul Metzler
  * 
- *      Version 1.0     17:37  Donnerstag 17.10.2024 Oktober 
+ *      Version 1.0.0    17:37  Donnerstag 17.10.2024 Oktober 
  * 
  *      Description:  Hier sind einfach Random Tools  
  * 
@@ -12,7 +12,6 @@ import java.util.Random;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import org.json.JSONObject;
 
 public class Random_Tools {
 
