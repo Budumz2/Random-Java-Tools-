@@ -10,6 +10,9 @@
 
 import java.util.Random;
 import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import org.json.JSONObject;
 
 public class Alle_Programme_2 {
 
