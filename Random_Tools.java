@@ -1,6 +1,6 @@
 /*      Made by Paul Metzler
  * 
- *      Version 1.0.0    17:37  Donnerstag 17.10.2024 Oktober 
+ *      Version 1.0.1    17:37  Donnerstag 17.10.2024 Oktober 
  * 
  *      Description:  Hier sind einfach Random Tools  
  * 
