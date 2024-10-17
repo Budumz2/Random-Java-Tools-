@@ -1,6 +1,6 @@
 /*      Made by Paul Metzler
  * 
- *      Version 1.0.1    17:37  Donnerstag 17.10.2024 Oktober 
+ *      Version 1.0.2    01:16  Freitag 18.10.2024 Oktober 
  * 
  *      Description:  Hier sind einfach Random Tools  
  * 
@@ -12,6 +12,7 @@ import java.util.Random;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Scanner;
 
 public class Random_Tools {
 
@@ -32,7 +33,7 @@ public static void main(String[] args) throws IOException{
   
     public static Integer Menue()throws IOException{
     BufferedReader einlesen = new BufferedReader(new InputStreamReader(System.in));
-    String Option1;
+    String Optionen;
     ConsoleClear();
     System.out.println(
     "\u001b[38;2;0;0;255mWas wollen Sie machen? Wählen Sie aus: \u001b[0m\n"
@@ -46,98 +47,93 @@ public static void main(String[] args) throws IOException{
     + "\u001b[38;2;255;0;0m8)\u001b[0m \u001b[38;2;0;255;255m Quersumme \u001b[0m\n"
     + "\u001b[38;2;255;0;0m9)\u001b[0m \u001b[38;2;0;255;255m Mastercard Prüfsummen Finder \u001b[0m\n"
     + "\u001b[38;2;255;0;0m10)\u001b[0m \u001b[38;2;0;255;255m Deziaml Zahl in Binär umwandeln \u001b[0m\n"
-    + "\u001b[38;2;255;0;0m11)\u001b[0m \u001b[38;2;0;255;255m 0 bis 100 Zahlen \u001b[0m");
+    + "\u001b[38;2;255;0;0m11)\u001b[0m \u001b[38;2;0;255;255m 0 bis 100 Zahlen \u001b[0m\n"
+    + "\u001b[38;2;255;0;0m12)\u001b[0m \u001b[38;2;0;255;255m Ulam Alogrithmus \u001b[0m\n"
+    + "\u001b[38;2;255;0;0m13)\u001b[0m \u001b[38;2;0;255;255m Zahl Zerlegen in Primfaktor \u001b[0m");
     
 
-  Option1 = einlesen.readLine();
-  
-        switch (Option1) {
+    Optionen = einlesen.readLine();
 
-        case "10":
-        
-            DezZuBinär();
-            Continue("DezZuBinär");
-
-
-         case "9":
-
-            //Mastercard Zeile 275
-            berechnePruefziffer();
-            Continue("berechnePruefziffer");
-
-         case "1":
-             
-         // Zeile 221
+    switch (Optionen) {
+        case "1":  // Zinseszinsen
             zinseszinsen();
             Continue("zinseszinsen");
-  
-             
-         case "2":
-  
-         // Zeile
+            break;
+            
+        case "2":  // Volumenberechnung
             VolumenBerechner();
             Continue("VolumenBerechner");
+            break;
             
-         case "3":
-
-  
+        case "3":  // PI berechnen
             berechenpi();
             Continue("berechenpi");
-  
-         case "4":
-             
-
+            break;
+            
+        case "4":  // Ziffer als Text
             ziffealstext();
             Continue("ziffealstext");
-             
-         case "5":
-
+            break;
+            
+        case "5":  // Anzahl der Ziffern
             AnzahlDerZiffern();
             Continue("AnzahlDerZiffern");
-             
-             
-         case"6":
-  
-                
-            FakulätEinerZahl();
-            Continue("FakulätEinerZahl");
-  
-
-             
-         case"8":
-           
-              quersumme();
-             
-             
-               Continue("quersumme");
-
-
-
-             
-         case "7":
+            break;
             
+        case "6":  // Fakultät
+            Fakultät2();
+            Continue("Fakultät2");
+            break;
+            
+        case "7":  // Fibonacci iterativ
             ConsoleClear();
-            
-            
             fibonacciIterative();
             Continue("fibonacciIterative");
-
-
-         break;
-
-       case "11":
+            break;
             
+        case "8":  // Quersumme
+            quersumme();
+            Continue("quersumme");
+            break;
+            
+        case "9":  // Mastercard Prüfziffer
+            berechnePruefziffer();
+            Continue("berechnePruefziffer");
+            break;
+            
+        case "10":  // Dezimal zu Binär
+            DezZuBinär();
+            Continue("DezZuBinär");
+            break;
+            
+        case "11":  // Arrays
             arrayss();
             Continue("arrayss");
-            
-            default:
-                System.out.println("Ungültige Option ausgewählt");
-                Interrupt();
-                Menue();
-                return 0; // Exit the program if an invalid option is selected
-        }
-      
-        return 0;
+            break;
+
+        case "12":  // Ulam
+            berechenUlam();
+            Continue("berechenUlam");
+            break;
+
+        case "13":
+            zerlegenInPrimfaktoren();
+            Continue("zerlegenInPrimfaktoren");
+            break;
+
+        case "14":
+            Fakultät2();
+            Continue("Fakultät2");
+            break;
+
+        default:
+            System.out.println("Ungültige Option ausgewählt");
+            Interrupt();
+            Menue();
+            return 0;
+    }
+    
+    return 0;
   
    }
           
@@ -145,7 +141,7 @@ public static void main(String[] args) throws IOException{
           
   
   
-      public static int VolumenBerechner()throws IOException{
+     public static int VolumenBerechner()throws IOException{
          BufferedReader einlesen=new BufferedReader(new InputStreamReader(System.in));
 
          System.out.println("Viel Spaß mit dem Volumen berechenr");
@@ -395,7 +391,11 @@ public static String ColorRandomizer(String text){
                   
                   break;
                   
-                  
+                  case "Fakultät2":
+                  Fakultät2();
+                  break;
+
+
                   case "FakulätEinerZahl":
                   
                   FakulätEinerZahl();
@@ -419,14 +419,24 @@ public static String ColorRandomizer(String text){
                   
                   arrayss();
                   break;
+
+                  case "berechenUlam":
                   
+                  berechenUlam();
+                  break;
+
+
+                  case "zerlegenInPrimfaktoren":
+                  zerlegenInPrimfaktoren();
+                  break;
               }
               
               
             case "3":
 
               System.out.println("\u001b[38;2;255;0;0mThanks for using the program Bye\u001b[0m");
-              break;
+              return 0;
+              
               
               default:
               Menue();
@@ -617,7 +627,7 @@ public static String Start_Menue(){
         String eingabe =reader.readLine();
         int lul=Integer.parseInt(eingabe);
         int lastt=lul;
-          int zahl=lastt;
+        int zahl=lastt;
 
 
           for(int i=0;i<lastt;i++){
@@ -634,54 +644,85 @@ public static String Start_Menue(){
 
     }
 
-      public static int  Fakultät2(int n){
-         BufferedReader einlesen = new BufferedReader(new InputStreamReader(System.in));
-         String DeineZahl;
-         int a;
-         
-          
-         
-         
-         for (int i=0;i<n;i++){
-           
-             a = + n*i;
+    public static void Fakultät2()throws IOException{
+        Scanner scanner=(new Scanner(System.in));
+        System.out.println("Fakultat einer Zahl : ");
+        int n=scanner.nextInt();
+        String  ergebnis="";
+        int zahl=1;
+        int i;
+    for ( i=1;i<=n;i++){
+      zahl*=i;
+        ergebnis=ergebnis+i+"*";
+     
+    }
 
+System.out.println(ergebnis+"Bzw !"+(i-1)+" Ist : "+zahl);
 
-         }
-
-
-         return  0;
-      }
-
+    Continue("Fakultät2");
+    }
 
 
 
 
-   public static int fibonacciIterative()throws IOException {
+   public static void zerlegenInPrimfaktoren()throws IOException{
+    Scanner scanner =(new Scanner(System.in));
+    System.out.println("Zahl : ");
+
+
+    int teiler=2,zahl;
+    String ergebnis="";
+    zahl=scanner.nextInt();
+
+    while(zahl>1){
+        if(zahl%teiler==0){
+
+            zahl=zahl/teiler;
+            ergebnis=ergebnis+teiler;
+            if(zahl>1){
+                ergebnis=ergebnis+"*";
+            }
+        }else{
+
+            teiler++;
+        }
+
+
+    }
+    
+    System.out.println(ergebnis);
+
+    Continue("zerlegenInPrimfaktoren");
+
+   }   
+
+
+   public static void fibonacciIterative()throws IOException {
        
-       BufferedReader reader=new BufferedReader(new InputStreamReader(System.in));
-       String eingabe;
-       System.out.println("Viel Spaß mit dem Fibontcci tool");
-       System.out.println("Gib die ein monate :");
-       
-              eingabe=reader.readLine();
-              int n =Integer.parseInt(eingabe);
-       
-       if (n<=1) return n;
-       int fib =1;
-       int prevFib=1;
-       
-       for(int i =2; i<n; i++){
-           int temp = fib;
-           fib+=prevFib;
-           prevFib=temp;
-           
-           
-       }
-       System.out.println("fib: "+fib+" Nach "+n+" Monaten");
-       return fib;
+    BufferedReader reader=new BufferedReader(new InputStreamReader(System.in));
+    String eingabe;
+    System.out.println("Viel Spaß mit dem Fibontcci tool");
+    System.out.println("Gib die monate ein  :");
+    
+    eingabe=reader.readLine();
+    int n =Integer.parseInt(eingabe);
+    
+    
+    int fib =1;
+    int prevFib=1;
+    
+    for(int i =2; i<n; i++){
 
+    int temp = fib;
+    fib+=prevFib;
+    prevFib=temp;
+        
+    }
+    System.out.println("fib: "+fib+" Nach "+n+" Monaten");
+       
+       
 
+    Continue("fibonacciIterative");
    }      
   
     public static String Interrupt(){
@@ -699,7 +740,7 @@ public static String Start_Menue(){
     }
     
     
-    public static int arrayss(){
+    public static void arrayss()throws IOException{
         
         int arreay []=new int [100];
         for(int i=0;i<arreay.length;i++){
@@ -709,12 +750,14 @@ public static String Start_Menue(){
         System.out.println(arreay[i]);
         }
         
-        return 0;
+        Continue("arrayss");
     }
-   public static String ConsoleClear(){
 
-      System.out.print("\033[H\033[2J");
-      return"";
+
+   public static void ConsoleClear(){
+
+    System.out.print("\033[H\033[2J");
+      
 
    }
     
@@ -781,6 +824,32 @@ public static String Start_Menue(){
         return "";
     }
 
+    public static void berechenUlam()throws IOException{
+        Scanner scanner=(new Scanner(System.in));
+        String ergebnis="";
+        System.out.println("Gib eine Zahl ein");
+        int a=scanner.nextInt();
+        
+        while(a>1){
+
+            if(a%2==0){
+
+                a=a/2;
+                ergebnis=ergebnis+","+a;
+            }else{
+
+                a=3*a+1;
+                ergebnis=ergebnis+","+a;
+            }
+
+
+        }
+
+        System.out.println(ergebnis);
+        
+        Continue("berechenUlam");
+        scanner.close();
+    }
     private static final String CURRENT_VERSION = "1.0.0";
     private static final String VERSION_URL = "https://raw.githubusercontent.com/Budumz2/Random-Java-Tools-/main/version.txt";
 
