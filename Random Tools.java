@@ -15,7 +15,8 @@ public class Alle_Programme_2 {
 
 
 public static void main(String[] args) throws IOException{
-// Start Main Methode    
+// Start Main Methode   
+    checkForUpdates();
     Start_Menue();
     Interrupt();
     ConsoleClear();
@@ -775,6 +776,122 @@ public static String Start_Menue(){
         
         
         return "";
+    }
+
+
+    // Gib die aktuelle Version deiner Anwendung hier an
+    private static final String CURRENT_VERSION = "1.0.0";
+
+    public static void checkForUpdates() {
+        try {
+            String latestVersion = getLatestVersionFromGithub();
+            System.out.println("Neueste Version auf GitHub: " + latestVersion);
+            System.out.println("Aktuelle Version: " + CURRENT_VERSION);
+
+            if (isUpdateAvailable(CURRENT_VERSION, latestVersion)) {
+                System.out.println("Update verfügbar! Die neueste Version " + latestVersion + " wird heruntergeladen.");
+                downloadLatestRelease();
+                System.out.println("Update erfolgreich heruntergeladen und installiert.");
+            } else {
+                System.out.println("Sie verwenden bereits die neueste Version.");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Funktion, um die neueste Version von GitHub zu holen
+    private static String getLatestVersionFromGithub() throws Exception {
+        String apiUrl = "https://api.github.com/repos/Budumz2/Random-Java-Tools-/releases/latest";
+        URL url = new URL(apiUrl);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        String inputLine;
+        StringBuilder content = new StringBuilder();
+        while ((inputLine = in.readLine()) != null) {
+            content.append(inputLine);
+        }
+
+        in.close();
+        connection.disconnect();
+
+        JSONObject jsonResponse = new JSONObject(content.toString());
+        return jsonResponse.getString("tag_name");
+    }
+
+    // Funktion, um die aktuelle Version mit der neuesten Version zu vergleichen
+    private static boolean isUpdateAvailable(String currentVersion, String latestVersion) {
+        String[] currentVersionParts = currentVersion.split("\\.");
+        String[] latestVersionParts = latestVersion.split("\\.");
+
+        for (int i = 0; i < Math.max(currentVersionParts.length, latestVersionParts.length); i++) {
+            int currentPart = i < currentVersionParts.length ? Integer.parseInt(currentVersionParts[i]) : 0;
+            int latestPart = i < latestVersionParts.length ? Integer.parseInt(latestVersionParts[i]) : 0;
+
+            if (currentPart < latestPart) {
+                return true;
+            } else if (currentPart > latestPart) {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    // Funktion, um die neueste Java-Datei herunterzuladen
+    private static void downloadLatestRelease() throws Exception {
+        String apiUrl = "https://api.github.com/repos/Budumz2/Random-Java-Tools-/releases/latest";
+        URL url = new URL(apiUrl);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        String inputLine;
+        StringBuilder content = new StringBuilder();
+        while ((inputLine = in.readLine()) != null) {
+            content.append(inputLine);
+        }
+
+        in.close();
+        connection.disconnect();
+
+        // Parse the release information from the API response
+        JSONObject jsonResponse = new JSONObject(content.toString());
+        String downloadUrl = jsonResponse.getJSONArray("assets").getJSONObject(0).getString("browser_download_url");
+
+        // Download the Java file from the release download URL
+        URL downloadLink = new URL(downloadUrl);
+        HttpURLConnection downloadConnection = (HttpURLConnection) downloadLink.openConnection();
+        InputStream inputStream = downloadConnection.getInputStream();
+
+        FileOutputStream fileOutputStream = new FileOutputStream("Random Tools.java");
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+            fileOutputStream.write(buffer, 0, bytesRead);
+        }
+
+        fileOutputStream.close();
+        inputStream.close();
+        System.out.println("Download abgeschlossen.");
+
+        // Kompilieren der heruntergeladenen Datei
+        compileDownloadedFile();
+    }
+
+    // Funktion zum Kompilieren der heruntergeladenen Java-Datei
+    private static void compileDownloadedFile() throws Exception {
+        Process process = Runtime.getRuntime().exec("javac Random\\ Tools.java");
+        process.waitFor(); // Warten, bis der Kompilierungsprozess abgeschlossen ist
+
+        if (process.exitValue() == 0) {
+            System.out.println("Die Datei wurde erfolgreich kompiliert.");
+        } else {
+            System.err.println("Fehler beim Kompilieren der Datei.");
+        }
     }
 
   }
